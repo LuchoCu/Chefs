@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+		html,body{height: 100%; padding:0; margin:0;}
+		form{ width:30em;height:13em; margin:-5em auto 0 auto; position: relative; top:50%; border:1px dotted #ccc; padding:.25em; }
+		fieldset{ margin:0;   border:0;padding:0;}
+		legend{float:left; font-size: 200%; text-align: center; color:blue; font-weight: bold; border-bottom: 1px solid blue; width:15em;  padding:0; }
+		label, label+ input, label+ select {display:inline; float:left;margin-top:1em;}
+		label{text-align: right; width:28%; clear: left; margin-top:.8em; }
+		label+ input, label+ select{ width:60%; padding:.25em; ; margin-left:.5em; border: 1px inset;  margin-left:}
+		#sub{  margin-top:1em; position: relative; float:left;clear: left; margin-left: 29%}
+        </style>
+    </head>
+    <body>
+	<form action="<c:url value='main.do'/>" method="post">
+            <fieldset><legend>Chefs</legend>
+                <div>
+                    <label for="nombre">Nombre: </label><input  type="text" name="nombre" id="nombre" value="">
+                    <label for="contrasena">Contraseña: </label><input  type="password" name="contrasena" id="contrasena" >
+                    <label for="tipo">Tipo de usuario: </label><select name="tipo" id="tipo" >
+                        <option value="Cliente">Cliente</option>
+                        <option value="Chef">Chef</option>
+                    </select>
+                    <input type="submit" value="Entrar" id="sub">
+                </div>    
+            </fieldset>	
+	</form>
+    </body>
+</html>
