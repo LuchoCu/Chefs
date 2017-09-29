@@ -26,7 +26,7 @@ import javax.ws.rs.core.MediaType;
  * @author Luis Ignacio Cubero
  */
 @Stateless
-@Path("entidades.pedido")
+@Path("pedido")
 public class PedidoFacadeREST extends AbstractFacade<Pedido> {
 
     //@PersistenceContext(unitName = "ChefsPU")

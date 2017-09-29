@@ -10,8 +10,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author Luis Ignacio Cubero
  */
 @Stateless
-@Path("entidades.usuario")
+@Path("usuario")
 public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
     //@PersistenceContext(unitName = "ChefsPU")
@@ -41,6 +43,18 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Usuario entity) {
+        em.getTransaction().begin();
+        StoredProcedureQuery query = this.em.createStoredProcedureQuery("Insertar_usuario");
+        query.registerStoredProcedureParameter("input_correo", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("input_nombre", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("input_contrasenha", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("input_tipo", String.class, ParameterMode.IN);
+        query.setParameter("correo", entity.getCorreo());
+        query.setParameter("nombre", entity.getNombre());
+        query.setParameter("contra", entity.getContrasenha());
+        query.setParameter("tipo", entity.getTipo());
+        query.execute();
+        em.getTransaction().commit();
         super.create(entity);
     }
 
