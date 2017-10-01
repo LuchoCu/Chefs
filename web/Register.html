@@ -33,26 +33,30 @@ and open the template in the editor.
                     <option value="Cliente">Cliente</option>
                     <option value="Chef">Chef</option>
                 </select>
-                <input type="submit" value="Registrar" id="sub">
+                <input type="submit" value="Registrar" id="sub"><br>
                 <div id="registerOUT"></div>
                 <script>
                 $("#register").submit(function()
                 {
+                    event.preventDefault();
                     $.ajax({
+                        headers: { 
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json' 
+                        },
                         type: "POST",
-                        url: 'http://localhost:8084/webresources/usuario',
-                        data: {
-                            "correo": "prueba@gmail.com",
-                            "nombre": "prueba",
-                            "contrasenha": "prueba",
-                            "tipo": "cliente"
-                          },
-                        success: function(){$('#registerOUT').html('<h1>Login successfull</h1>');},
-                        error: function(){$('#registerOUT').html('<h1>Login error</h1>');},
-                        dataType: 'json'
+                        url: 'webresources/usuario',
+                        data: JSON.stringify({
+                            "correo": document.getElementById("correo").value,
+                            "nombre": document.getElementById("nombre").value,
+                            "contrasenha": document.getElementById("contrasena").value,
+                            "tipo": document.getElementById("tipo").value.toString().toLowerCase()
+                        }),
+                        dataType: 'json',
+                        success: function(){window.alert("Datos ingresados correctamente."); window.location.replace("http://localhost:8084/Chefs/Login.html");},
+                        error: function(){$('#registerOUT').html('<label id="sub">Datos incorrectos.</label>');}  
                     });
-                });
-               
+                });             
                 </script>
             </fieldset>    
         </form>

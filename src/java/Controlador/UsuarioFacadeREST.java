@@ -7,12 +7,12 @@ package Controlador;
 
 import Entidades.Usuario;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,6 +23,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.eclipse.persistence.exceptions.DatabaseException;
+
 
 /**
  *
@@ -41,21 +43,27 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    //@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public void create(Usuario entity) {
-        em.getTransaction().begin();
-        StoredProcedureQuery query = this.em.createStoredProcedureQuery("Insertar_usuario");
-        query.registerStoredProcedureParameter("input_correo", String.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("input_nombre", String.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("input_contrasenha", String.class, ParameterMode.IN);
-        query.registerStoredProcedureParameter("input_tipo", String.class, ParameterMode.IN);
-        query.setParameter("correo", entity.getCorreo());
-        query.setParameter("nombre", entity.getNombre());
-        query.setParameter("contra", entity.getContrasenha());
-        query.setParameter("tipo", entity.getTipo());
-        query.execute();
-        em.getTransaction().commit();
-        super.create(entity);
+        
+        try {
+            em.getTransaction().begin();
+            StoredProcedureQuery query = this.em.createStoredProcedureQuery("Insertar_usuario");
+            query.registerStoredProcedureParameter("input_correo", String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter("input_nombre", String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter("input_contrasenha", String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter("input_tipo", String.class, ParameterMode.IN);
+            query.setParameter("input_correo", entity.getCorreo());
+            query.setParameter("input_nombre", entity.getNombre());
+            query.setParameter("input_contrasenha", entity.getContrasenha());
+            query.setParameter("input_tipo", entity.getTipo());
+            query.execute();
+            em.getTransaction().commit();
+        } catch (DatabaseException e) {
+            throw e;
+        }
+        //super.create(entity);
     }
 
     @PUT
@@ -92,6 +100,15 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Usuario> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
+    }
+    
+    @GET
+    @Path("{user}/{type}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public String login(@PathParam("user") String user, @PathParam("type") String type) {
+        
+        return "hoa";
+
     }
 
     @GET
