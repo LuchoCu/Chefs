@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Entidades.Mongo;
 import Entidades.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -13,7 +14,6 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 public class LoginRest extends AbstractFacade<Usuario>{
     
     private EntityManager em = Persistence.createEntityManagerFactory("ChefsPU").createEntityManager();
+    private Mongo log = new Mongo();
 
     public LoginRest() {
         super(Usuario.class);
@@ -34,20 +35,21 @@ public class LoginRest extends AbstractFacade<Usuario>{
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    public boolean login(Usuario entity) throws Exception {
+    public void login(Usuario entity) throws Exception {
         TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findForLogin", Usuario.class);
         query.setParameter("correo", entity.getCorreo());
         query.setParameter("contrasenha", entity.getContrasenha());
         query.setParameter("tipo", entity.getTipo());
         List<Usuario> lista = query.getResultList();
-        if(!lista.isEmpty())
-        {
-            return true;
-        }
-        else
+        if(lista.isEmpty())
         {
             PersistenceException exception = new PersistenceException("Datos incorrectos");
             throw exception;
+        }
+        else
+        {
+            String accion = "Usuario " + entity.getCorreo() + " ha iniciado sesion";
+            log.insertarAccion(accion);
         }
     }
 

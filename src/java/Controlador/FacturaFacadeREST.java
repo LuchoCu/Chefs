@@ -13,7 +13,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -44,7 +43,7 @@ public class FacturaFacadeREST extends AbstractFacade<Factura> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Factura entity) {
         Mongo claseMongo = new Mongo();
-        claseMongo.insertarMongo(entity);
+        claseMongo.insertarFactura(entity);
         em.getTransaction().begin();
         em.createStoredProcedureQuery("EXEC Crear_factura("+ entity.getId() +")");
         em.getTransaction().commit();
@@ -68,7 +67,7 @@ public class FacturaFacadeREST extends AbstractFacade<Factura> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Factura find(@PathParam("id") BigDecimal id) throws IOException {
         Mongo claseMongo = new Mongo();
-        claseMongo.verMongo(id);
+        claseMongo.verFactura(id);
         return super.find(id);
     }
 

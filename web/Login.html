@@ -24,38 +24,36 @@ and open the template in the editor.
     <body>
 	<form id="login" method="post">
             <fieldset><legend>Chefs</legend>
-                <div>
-                    <label for="correo">Correo: </label><input type="text" name="correo" id="correo">
-                    <label for="contrasena">Contraseña: </label><input  type="password" name="contrasena" id="contrasena" >
-                    <label for="tipo">Tipo de usuario: </label><select name="tipo" id="tipo" >
-                        <option value="Cliente">Cliente</option>
-                        <option value="Chef">Chef</option>
-                    </select>
-                    <input type="submit" value="Entrar" id="sub">
-                    <div id="registerOUT"></div>
-                    <script>
-                    $("#login").submit(function()
-                    {
-                       event.preventDefault();
-                       $.ajax({
-                            headers: { 
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            type: "POST",
-                            url: 'webresources/login',
-                            data: JSON.stringify({
-                                "correo": document.getElementById("correo").value,
-                                "tipo": document.getElementById("tipo").value.toString().toLowerCase(),
-                                "contrasenha": document.getElementById("contrasena").value
-                            }),
-                            dataType: 'json',
-                            success: function(){window.alert("Datos ingresados correctamente."); window.location.replace("http://localhost:8084/Chefs/Main.html");},
-                            error: function(){$('#registerOUT').html('<label id="sub">Datos incorrectos.</label>');}  
-                        });
-                    });             
-                    </script>
-                </div>    
+                <label for="correo">Correo: </label><input type="text" name="correo" id="correo">
+                <label for="contrasena">Contraseña: </label><input  type="password" name="contrasena" id="contrasena" >
+                <label for="tipo">Tipo de usuario: </label><select name="tipo" id="tipo" >
+                    <option value="Cliente">Cliente</option>
+                    <option value="Chef">Chef</option>
+                </select>
+                <input type="submit" value="Entrar" id="sub">
+                <div id="registerOUT"></div>
+                <script>
+                $("#login").submit(function()
+                {
+                   event.preventDefault();
+                   $.ajax({
+                        headers: { 
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json' 
+                        },
+                        type: "POST",
+                        url: 'webresources/login',
+                        data: JSON.stringify({
+                            "correo": document.getElementById("correo").value,
+                            "tipo": document.getElementById("tipo").value.toString().toLowerCase(),
+                            "contrasenha": document.getElementById("contrasena").value
+                        }),
+                        dataType: 'json',
+                        success: function(){window.alert("Datos ingresados correctamente."); window.location.replace("http://localhost:8084/Chefs/Main.html");},
+                        error: function(){$('#registerOUT').html('<label id="sub">Datos incorrectos.</label>');}  
+                    });
+                });             
+                </script>   
             </fieldset>	
 	</form>
     </body>

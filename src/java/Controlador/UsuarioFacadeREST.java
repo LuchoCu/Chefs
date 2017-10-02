@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Entidades.Mongo;
 import Entidades.Usuario;
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,6 +36,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
     //@PersistenceContext(unitName = "ChefsPU")
     private EntityManager em = Persistence.createEntityManagerFactory("ChefsPU").createEntityManager();
+    private Mongo log = new Mongo();
 
     public UsuarioFacadeREST() {
         super(Usuario.class);
@@ -59,6 +61,8 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
             query.setParameter("input_tipo", entity.getTipo());
             query.execute();
             em.getTransaction().commit();
+            String accion = "Usuario " + entity.getCorreo()+ " se ha registrado";
+            log.insertarAccion(accion);
         } catch (DatabaseException e) {
             throw e;
         }
