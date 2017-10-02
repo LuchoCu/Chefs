@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(Controlador.FacturaFacadeREST.class);
         resources.add(Controlador.IngredienteFacadeREST.class);
+        resources.add(Controlador.LoginRest.class);
         resources.add(Controlador.PedidoFacadeREST.class);
         resources.add(Controlador.PlatilloFacadeREST.class);
         resources.add(Controlador.UsuarioFacadeREST.class);

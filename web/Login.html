@@ -9,9 +9,10 @@ and open the template in the editor.
         <title>Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <style type="text/css">
 		html,body{height: 100%; padding:0; margin:0;}
-		form{ width:30em;height:13em; margin:-5em auto 0 auto; position: relative; top:50%; border:1px dotted #ccc; padding:.25em; }
+		form{ width:30em;height:14em; margin:-5em auto 0 auto; position: relative; top:50%; border:1px dotted #ccc; padding:.25em; }
 		fieldset{ margin:0;   border:0;padding:0;}
 		legend{float:left; font-size: 200%; text-align: center; color:blue; font-weight: bold; border-bottom: 1px solid blue; width:15em;  padding:0; }
 		label, label+ input, label+ select {display:inline; float:left;margin-top:1em;}
@@ -21,7 +22,7 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-	<form action="<c:url value='main.do'/>" method="post">
+	<form id="login" method="post">
             <fieldset><legend>Chefs</legend>
                 <div>
                     <label for="correo">Correo: </label><input type="text" name="correo" id="correo">
@@ -33,23 +34,23 @@ and open the template in the editor.
                     <input type="submit" value="Entrar" id="sub">
                     <div id="registerOUT"></div>
                     <script>
-                    $("#register").submit(function()
+                    $("#login").submit(function()
                     {
-                        event.preventDefault();
-                        $.ajax({
+                       event.preventDefault();
+                       $.ajax({
                             headers: { 
                                 'Accept': 'application/json',
-                                'Content-Type': 'application/json' 
+                                'Content-Type': 'application/json'
                             },
                             type: "POST",
-                            url: 'webresources/usuario',
+                            url: 'webresources/login',
                             data: JSON.stringify({
                                 "correo": document.getElementById("correo").value,
-                                "contrasenha": document.getElementById("contrasena").value,
-                                "tipo": document.getElementById("tipo").value.toString().toLowerCase()
+                                "tipo": document.getElementById("tipo").value.toString().toLowerCase(),
+                                "contrasenha": document.getElementById("contrasena").value
                             }),
                             dataType: 'json',
-                            success: function(){window.alert("Datos ingresados correctamente."); window.location.replace("http://localhost:8084/Chefs/Login.html");},
+                            success: function(){window.alert("Datos ingresados correctamente."); window.location.replace("http://localhost:8084/Chefs/Main.html");},
                             error: function(){$('#registerOUT').html('<label id="sub">Datos incorrectos.</label>');}  
                         });
                     });             
