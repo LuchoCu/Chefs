@@ -13,7 +13,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.StoredProcedureQuery;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -89,6 +91,28 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     public Usuario find(@PathParam("id") BigDecimal id) {
         return super.find(id);
     }
+    
+    @GET
+    @Path("{mail}/{algo}/{algo2}")
+    //@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Usuario findByMail(@PathParam("mail") String mail) {
+        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCorreo", Usuario.class);
+        query.setParameter("correo", mail);
+        List<Usuario> lista = query.getResultList();
+        if(lista.isEmpty())
+        {
+            PersistenceException exception = new PersistenceException("Datos incorrectos");
+            throw exception;
+        }
+        else
+        {
+            Usuario resultado = query.getSingleResult();
+            String accion = "Usuario " + resultado.getCorreo() + " ha entrado";
+            log.insertarAccion(accion);
+            return resultado;
+        }
+    }
 
     @GET
     @Override
@@ -99,10 +123,23 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     }
 
     @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Usuario> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    @Path("{tipo}/{algo}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Usuario> findRange(@PathParam("tipo") String tipo, @PathParam("to") Integer to) {
+        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByTipo", Usuario.class);
+        query.setParameter("tipo", tipo);
+        
+        List<Usuario> lista = query.getResultList();
+        if(lista.isEmpty())
+        {
+            PersistenceException exception = new PersistenceException("Datos vacios");
+            throw exception;
+        }
+        else
+        {
+            return lista;
+        }
+        
     }
 
     @GET

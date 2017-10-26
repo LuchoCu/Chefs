@@ -26,8 +26,10 @@ import org.bson.Document;
  */
 public class Mongo {
     
-    MongoClient mongo = new MongoClient( "MiniOptimus" , 27017 );
-  //MongoClient mongo = new MongoClient( "localhost" , 27017 );  ---ESTOOOO
+    //MongoClient mongo = new MongoClient( "MiniOptimus" , 27017 );
+    MongoClient mongo = new MongoClient( "localhost" , 27017 ); 
+    //MongoClient mongo = new MongoClient( "MiniOptimus" , 27017 );
+    //MongoClient mongo = new MongoClient( "localhost" , 27017 );  ---ESTOOOO
     MongoDatabase db = mongo.getDatabase("Chefs");
     
     public void insertarFactura(Factura entity )
