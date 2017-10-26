@@ -6,26 +6,50 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Chefs</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style type="text/css">
-		html,body{height: 100%; padding:0; margin:0;}
-		form{ width:30em;height:9em; margin:-5em auto 0 auto; position: relative; top:50%; border:1px dotted #ccc; padding:.25em; }
-		label, label+ a {display:inline; float:left;margin-top:1em;}
-		label{text-align: right; width:28%; clear: left; margin-top:.8em; }
-		label+ a{ width:60%; padding:.25em; ; margin-left:.5em; border: 1px inset;  margin-left:}
-        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     </head>
     <body>
-        <form action="<c:url value='main.do'/>" method="post">
-            <fieldset><legend>Chefs</legend>
-                <div>
-                    <label>Nombre:</label><a id="nombre" href="" >Algo</a>
-                    <label>Platillos:</label><a href="" >Algo</a>
+        <!--<form action="<c:url value='main.do'/>" method="post">-->
+        <h1 style="text-align: center;"><strong><span style="color: #99cc00;">Chefs</span></strong></h1>
+        <img src="cliente.png" alt="cliente" width="100" >  
+        
+        
+        <h2 style="color: #99cc00;">Buscar:</h2>
+        <ol style="list-style: none; font-size: 14px; line-height: 32px; font-weight: bold;">
+        <li style="clear: both;"><img style="float: left;" src="chef.png" alt="interactive connection" width="100" /> 
+            <form action="http://localhost:8080/Chefs/DisplayChefs.html">
+                <input type="submit" value="Chefs" style="color: teal; background-color: #FFFFFF;"/>
+            </form>
+        </li>
+        <li style="clear: both;"><img style="float: left;" src="estrella.png" alt="html cleaner" width="100" /> 
+            <form action="http://localhost:8080/Chefs/DisplayTopChefs.html">
+                <input type="submit" value="Top Chefs" style="color: teal; background-color: #FFFFFF;"/>
+            </form>
+        </li>
+        <li style="clear: both;"><img style="float: left;" src="tomate.png" alt="Word to html" width="100" /> 
+            <form action="http://localhost:8080/Chefs/DisplayPlatillos.html">
+                <input type="submit" value="Platillos" style="color: teal; background-color: #FFFFFF;"/>
+            </form>
+        </li>
+        </ol>
+	<!--
+        <script>    
+            $(function(){
+                $.getJSON('/Chefs/webresources/usuario/1', function(data){
+                    $('#OUT').html('<li id="sub">' + JSON.stringify(data, null, 2) + '</li>');
+                    var content = '';
+                    $.each(data, function(i, post) {
+                        content += '<li>' + post + '</li>';
+                    });
 
-                </div>    
-            </fieldset>	
-	</form>
+                    $(content).appendTo("#OUT");
+                });
+            });
+        </script> </form>-->
+        
+                     
     </body>
 </html>

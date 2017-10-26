@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="OUT">TODO write content</div>
+        <script>
+            $(function(){
+                $.getJSON('/Chefs/webresources/usuario/chef/1', function(data){
+                    $('#OUT').html('<li id="sub">' + JSON.stringify(data, null, 2) + '</li>');
+                    var content = '';
+                    $.each(data, function(i, post) {
+                        $.each(post, function(k, l)
+                        {
+                            
+                            content += '<li>' + l + '</li>';
+                        });
+                        
+                    });
+
+                    $(content).appendTo("#OUT");
+                });
+            });
+        </script>
+    </body>
+</html>

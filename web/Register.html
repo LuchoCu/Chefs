@@ -6,24 +6,24 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Registro</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <style type="text/css">
 		html,body{height: 100%; padding:0; margin:0;}
-		form{ width:30em;height:19em; margin:-5em auto 0 auto; position: relative; top:50%; border:1px dotted #ccc; padding:.25em; }
+		form{ width:30em;height:25em; margin:-5em auto 0 auto; position: relative; top:15%; border:1px dotted #ccc; padding:.25em; }
 		fieldset{ margin:0;   border:0;padding:0;}
 		legend{float:left; font-size: 200%; text-align: center; color:blue; font-weight: bold; border-bottom: 1px solid blue; width:15em;  padding:0; }
-		label, label+ input, label+ select{display:inline; float:left;margin-top:1em;}
+		label, label+ input, label+ select {display:inline; float:left;margin-top:1em;}
 		label{text-align: right; width:28%; clear: left; margin-top:.8em; }
 		label+ input, label+ select{ width:60%; padding:.25em; ; margin-left:.5em; border: 1px inset;  margin-left:}
 		#sub{  margin-top:1em; position: relative; float:left;clear: left; margin-left: 29%}
         </style>
     </head>
     <body>
+        <h1 style="text-align: center;"><strong><span style="color: #99cc00;">Chefs</span></strong></h1>
         <form id="register" method="post">
-            <fieldset><legend>Chefs</legend>
                 <label for="nombre">Nombre: </label><input type="text" name="nombre" id="nombre" >
                 <label for="correo">Correo: </label><input type="text" name="correo" id="correo">
                 <label for="contrasena">Contraseña: </label><input type="password" name="contraseña" id="contrasena">
@@ -33,7 +33,7 @@ and open the template in the editor.
                     <option value="Cliente">Cliente</option>
                     <option value="Chef">Chef</option>
                 </select>
-                <input type="submit" value="Registrar" id="sub"><br>
+                <input type="submit" value="Registrarse" id="sub"><br>
                 <div id="registerOUT"></div>
                 <script>
                 $("#register").submit(function()
@@ -53,12 +53,11 @@ and open the template in the editor.
                             "tipo": document.getElementById("tipo").value.toString().toLowerCase()
                         }),
                         dataType: 'json',
-                        success: function(){window.alert("Datos ingresados correctamente."); window.location.replace("http://localhost:8084/Chefs/Login.html");},
+                        success: function(){window.alert("Usuario registrado!"); window.location.replace("http://localhost:8080/Chefs/Login.html");},
                         error: function(){$('#registerOUT').html('<label id="sub">Datos incorrectos.</label>');}  
                     });
                 });             
-                </script>
-            </fieldset>    
+                </script>    
         </form>
         
     </body>
