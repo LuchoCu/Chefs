@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -74,10 +72,6 @@ public class Usuario implements Serializable {
         @JoinColumn(name = "PLATILLO_ID", referencedColumnName = "ID")})
     @ManyToMany
     private Collection<Platillo> platilloCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteId")
-    private Collection<Pedido> pedidoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chefId")
-    private Collection<Pedido> pedidoCollection1;
 
     public Usuario() {
     }
@@ -143,24 +137,6 @@ public class Usuario implements Serializable {
         this.platilloCollection = platilloCollection;
     }
 
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
-    }
-
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection1() {
-        return pedidoCollection1;
-    }
-
-    public void setPedidoCollection1(Collection<Pedido> pedidoCollection1) {
-        this.pedidoCollection1 = pedidoCollection1;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -185,8 +161,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "Entidades.Usuario[ id=" + id + " ]";
     }
-
-    
-   
     
 }

@@ -10,14 +10,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -59,9 +57,7 @@ public class Platillo implements Serializable {
     @ManyToMany(mappedBy = "platilloCollection")
     private Collection<Usuario> usuarioCollection;
     @ManyToMany(mappedBy = "platilloCollection")
-    private Collection<Ingrediente> ingredienteCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "platilloId")
-    private Collection<Pedido> pedidoCollection;
+    private Collection<Ingrediente> ingredienteCollection;    
 
     public Platillo() {
     }
@@ -124,16 +120,7 @@ public class Platillo implements Serializable {
     public void setIngredienteCollection(Collection<Ingrediente> ingredienteCollection) {
         this.ingredienteCollection = ingredienteCollection;
     }
-
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
-    }
-
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -158,5 +145,5 @@ public class Platillo implements Serializable {
     public String toString() {
         return "Entidades.Platillo[ id=" + id + " ]";
     }
-    
+   
 }

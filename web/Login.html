@@ -8,54 +8,20 @@ and open the template in the editor.
     <head>
         <title>Login</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-        <style type="text/css">
-		html,body{height: 100%; padding:0; margin:0;}
-		form{ width:30em;height:25em; margin:-5em auto 0 auto; position: relative; top:15%; border:1px dotted #ccc; padding:.25em; }
-		fieldset{ margin:0;   border:0;padding:0;}
-		legend{float:left; font-size: 200%; text-align: center; color:blue; font-weight: bold; border-bottom: 1px solid blue; width:15em;  padding:0; }
-		label, label+ input, label+ select {display:inline; float:left;margin-top:1em;}
-		label{text-align: right; width:28%; clear: left; margin-top:.8em; }
-		label+ input, label+ select{ width:60%; padding:.25em; ; margin-left:.5em; border: 1px inset;  margin-left:}
-		#sub{  margin-top:1em; position: relative; float:left;clear: left; margin-left: 29%}
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
     </head>
     <body>
         <h1 style="text-align: center;"><strong><span style="color: #99cc00;">Chefs</span></strong></h1>
         <center><img src="cliente.png" alt="what image shows" height="150" width="150"></center>
-	<form id="login" method="post">               
-                <label for="correo">Correo: </label><input type="text" name="correo" id="correo">
-                <label for="contrasena">Contraseña: </label><input  type="password" name="contrasena" id="contrasena" >
-                <label for="tipo">Tipo de usuario: </label><select name="tipo" id="tipo" >
-                    <option value="Cliente">Cliente</option>
-                    <option value="Chef">Chef</option>
-                </select>
-                <input type="submit" value="Entrar" id="sub">
-                <div id="registerOUT"></div>
-                <A HREF="http://localhost:8080/Chefs/Register.html" style="position:absolute; top:133px; left:230px;" >Registrarse</A>
-                <script>
-                $("#login").submit(function()
-                {
-                   event.preventDefault();
-                   $.ajax({
-                        headers: { 
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json' 
-                        },
-                        type: "POST",
-                        url: 'webresources/login',
-                        data: JSON.stringify({
-                            "correo": document.getElementById("correo").value,
-                            "tipo": document.getElementById("tipo").value.toString().toLowerCase(),
-                            "contrasenha": document.getElementById("contrasena").value
-                        }),
-                        dataType: 'json',
-                        success: function(){window.location.replace("http://localhost:8080/Chefs/Main.html");},
-                        error: function(){$('#registerOUT').html('<label id="sub">Datos incorrectos.</label>');}  
-                    });
-                });             
-                </script> 
-	</form>
+	<form id="login" action="LoginServlet" method="post">  
+            <center>
+                <input type="text" name="correo" placeholder="Correo" style="height:20px;width:200px;" id="correo">
+                <br>
+                <input  type="password" name="contrasena" placeholder="Contraseña" style="height:20px;width:200px;" id="contrasena" >
+                <br><br>
+                <input type="submit" value="Entrar" style="height:27px;width:204px;" id="sub">
+                <br>
+            </center>
+    </form>
     </body>
 </html>

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
-import Entidades.Mongo;
 import Entidades.Usuario;
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,7 +32,6 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
     //@PersistenceContext(unitName = "ChefsPU")
     private EntityManager em = Persistence.createEntityManagerFactory("ChefsPU").createEntityManager();
-    private Mongo log = new Mongo();
 
     public UsuarioFacadeREST() {
         super(Usuario.class);
@@ -64,7 +57,6 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
             query.execute();
             em.getTransaction().commit();
             String accion = "Usuario " + entity.getCorreo()+ " se ha registrado";
-            log.insertarAccion(accion);
         } catch (DatabaseException e) {
             throw e;
         }
@@ -109,7 +101,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         {
             Usuario resultado = query.getSingleResult();
             String accion = "Usuario " + resultado.getCorreo() + " ha entrado";
-            log.insertarAccion(accion);
+            //log.insertarAccion(accion);
             return resultado;
         }
     }
