@@ -21,7 +21,6 @@ public class ApplicationConfig extends Application {
         resources.add(Controlador.IngredienteFacadeREST.class);
         resources.add(Controlador.LoginREST.class);
         resources.add(Controlador.PlatilloFacadeREST.class);
-        //resources.add(Controlador.MongoRest.class);
         resources.add(Controlador.UsuarioFacadeREST.class);
         
     }

@@ -5,6 +5,8 @@
  */
 package Servlets;
 
+import Controlador.LoginREST;
+import Entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,20 +33,27 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        PrintWriter writer = response.getWriter();
+        
         String mail = request.getParameter("correo");
         String password = request.getParameter("contrasena");
         
-        if (checkUser(mail, password) == true) {            
+        if (checkUser(response, mail, password) == true) {            
             HttpSession session=request.getSession();
             session.setAttribute("mail",mail);
             //response.sendRedirect("ProfileServlet");
             response.sendRedirect("Main.html");
         } else {
-            System.out.println("Error");
+            writer.print("Datos incorrectos");
         }
     }
 
-    protected boolean checkUser (String name, String pass) {  
+    protected boolean checkUser (HttpServletResponse response, String name, String pass) throws IOException {  
+        //Usuario usuario = new Usuario();
+        //try{
+        //    LoginREST.login(usuario);
+        //            }
         return true;
     }
 }
