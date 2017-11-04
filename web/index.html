@@ -1,17 +1,52 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Chefs</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="refresh" content="0; url=Login.html" />
-    </head>
-    <body>
-        <div>Chefs</div>
-    </body>
-</html>
+<HTML>
+    <HEAD>
+        <TITLE>
+            Chefs
+        </TITLE>
+    </HEAD>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="index.js"></script>
+    <BODY>
+        <div id="logo_image">
+            <img src="cliente.png" alt="Chef Logo">
+        </div>
+
+        <div id="menu_panel" hidden="true">
+            <div id="search_menu">
+                <input id="search_value" type="text" placeholder="Parametro de busqueda">
+                <button id="b_search"> Buscar </button>
+            </div>
+            <button id="b_logout"> Salir </button>
+        </div>
+
+        <div id="login_menu">
+            <input id="email" type="text" placeholder="Correo"> <br>
+            <input id="password" type="password" placeholder="Contraseña" maxlength="200"> <br>
+            <button id="b_loguin"> Entrar </button>
+        </div>
+
+        <div id="start_menu" hidden="true">
+            <div id="top_chefs_menu">
+                <button id="b_more_chefs"> Más </button>
+            </div>
+
+            <div id="top_meals_menu">
+                <button id="b_more_meals"> Más </button>
+            </div>
+        </div>
+
+        <div id="search_menu" hidden="true">
+
+        </div>
+
+        <div id="chef_menu" hidden="true">
+
+        </div>
+
+        <div id="meal_menu" hidden="true">
+
+        </div>
+
+    </BODY>
+</HTML>
