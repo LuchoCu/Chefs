@@ -21,7 +21,6 @@ import javax.ws.rs.core.MediaType;
 public class LoginREST extends AbstractFacade<Usuario>{
     
     private EntityManager em = Persistence.createEntityManagerFactory("ChefsPU").createEntityManager();
-    //private Mongo log = new Mongo();
 
     public LoginREST() {
         super(Usuario.class);
@@ -33,7 +32,7 @@ public class LoginREST extends AbstractFacade<Usuario>{
         TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findForLogin", Usuario.class);
         query.setParameter("correo", entity.getCorreo());
         query.setParameter("contrasenha", entity.getContrasenha());
-        query.setParameter("tipo", entity.getTipo());
+        //query.setParameter("tipo", entity.getTipo());
         List<Usuario> lista = query.getResultList();
         if(lista.isEmpty())
         {
