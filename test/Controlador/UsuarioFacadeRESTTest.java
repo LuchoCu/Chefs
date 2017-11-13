@@ -7,7 +7,6 @@ package Controlador;
 
 import Entidades.Usuario;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.ejb.embeddable.EJBContainer;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,13 +36,28 @@ public class UsuarioFacadeRESTTest {
     
     @Before
     public void setUp() {
-        entity = new Usuario(BigDecimal.ONE, "aa@gmail.com", "aa", "aa", "Chef");
+        
     }
     
     @After
     public void tearDown() {
     }
+    
+    /**
+     * Test of create method, of class UsuarioFacadeREST.
+     */
+    @Test
+    public void testCreate() throws Exception {
+        System.out.println("create");
+        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+        UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST"); //Posible error.
+        entity = new Usuario(BigDecimal.ONE, "aa@gmail.com", "aa", "aa", "Chef");
+        instance.create(entity);
+        container.close();
 
+        fail("No se pudo crear.");
+    }
+    
     /**
      * Test of edit method, of class UsuarioFacadeREST.
      */
@@ -51,8 +65,10 @@ public class UsuarioFacadeRESTTest {
     public void testEdit_GenericType() throws Exception {
         System.out.println("edit");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST/1"); //Posible error.
-        instance.edit(entity);
+        UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST"); //Posible error.
+        entity = new Usuario(BigDecimal.ONE, "aa@gmail.com", "aa", "aa", "Chef");
+        BigDecimal id = new BigDecimal(1);
+        instance.edit(id, entity);
         container.close();
 
         fail("No se pudo editar.");
@@ -66,9 +82,10 @@ public class UsuarioFacadeRESTTest {
         System.out.println("remove");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST/1");
-        instance.remove(entity);
+        BigDecimal id = new BigDecimal(1);
+        instance.remove(id);
         container.close();
-
+        
         fail("No se pudo remover.");
     }
 
@@ -78,9 +95,10 @@ public class UsuarioFacadeRESTTest {
     @Test
     public void testFind_Object() throws Exception {
         System.out.println("find");
-        Object id = 1;
+        BigDecimal id = new BigDecimal(1);
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST");
+        entity = new Usuario(BigDecimal.ONE, "aa@gmail.com", "aa", "aa", "Chef");
         Usuario expResult = entity;
         Usuario result = instance.find(id);
         assertEquals(expResult, result);
@@ -106,32 +124,19 @@ public class UsuarioFacadeRESTTest {
     }
 
     /**
-     * Test of create method, of class UsuarioFacadeREST.
-     */
-    @Test
-    public void testCreate() throws Exception {
-        System.out.println("create");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST");
-        instance.create(entity);
-        container.close();
- 
-        fail("No se pudo crear el usuario.");
-    }
-
-    /**
      * Test of edit method, of class UsuarioFacadeREST.
      */
     @Test
     public void testEdit_BigDecimal_Usuario() throws Exception {
         System.out.println("edit");
-        BigDecimal id = new BigDecimal(BigInteger.ONE);
+        BigDecimal id = new BigDecimal(1);
+        entity = new Usuario(BigDecimal.ONE, "aa@gmail.com", "aa", "aa", "Chef");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST");
         instance.edit(id, entity);
         container.close();
 
-        fail("No se pudo editar el usuario #.");
+        fail("No se pudo editar el usuario "+ id.toString() +".");
     }
 
     /**
@@ -140,13 +145,13 @@ public class UsuarioFacadeRESTTest {
     @Test
     public void testRemove_BigDecimal() throws Exception {
         System.out.println("remove");
-        BigDecimal id = new BigDecimal(BigInteger.ONE);
+        BigDecimal id = new BigDecimal(1);
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST");
         instance.remove(id);
         container.close();
  
-        fail("No se pudo remover el usuario #.");
+        fail("No se pudo remover el usuario "+ id.toString() +".");
     }
 
     /**
@@ -155,15 +160,16 @@ public class UsuarioFacadeRESTTest {
     @Test
     public void testFind_BigDecimal() throws Exception {
         System.out.println("find");
-        BigDecimal id = new BigDecimal(BigInteger.ONE);
+        BigDecimal id = new BigDecimal(1);
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST");
+        entity = new Usuario(BigDecimal.ONE, "aa@gmail.com", "aa", "aa", "Chef");
         Usuario expResult = entity;
         Usuario result = instance.find(id);
         assertEquals(expResult, result);
         container.close();
 
-        fail("El resultado de # no es el esperado.");
+        fail("El resultado de "+ id.toString() +" no es el esperado.");
     }
 
     /**
@@ -175,6 +181,7 @@ public class UsuarioFacadeRESTTest {
         String mail = "aa@gmail.com";
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         UsuarioFacadeREST instance = (UsuarioFacadeREST)container.getContext().lookup("java:global/classes/UsuarioFacadeREST");
+        entity = new Usuario(BigDecimal.ONE, "aa@gmail.com", "aa", "aa", "Chef");
         Usuario expResult = entity;
         Usuario result = instance.findByMail(mail);
         assertEquals(expResult, result);

@@ -8,7 +8,6 @@ package Controlador;
 import Entidades.Platillo;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -38,7 +37,7 @@ public class PlatilloFacadeRESTTest {
     
     @Before
     public void setUp() {
-        entity = new Platillo(BigDecimal.ONE, BigInteger.ONE);
+        
     }
     
     @After
@@ -53,7 +52,9 @@ public class PlatilloFacadeRESTTest {
         System.out.println("edit");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         PlatilloFacadeREST instance = (PlatilloFacadeREST)container.getContext().lookup("java:global/classes/PlatilloFacadeREST");
-        instance.edit(entity);
+        entity = new Platillo(BigDecimal.ONE, BigInteger.ONE);
+        BigDecimal id = new BigDecimal(1);
+        instance.edit(id, entity);
         container.close();
 
         fail("No se pudo editar.");
@@ -67,7 +68,8 @@ public class PlatilloFacadeRESTTest {
         System.out.println("remove");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         PlatilloFacadeREST instance = (PlatilloFacadeREST)container.getContext().lookup("java:global/classes/PlatilloFacadeREST");
-        instance.remove(entity);
+        BigDecimal id = new BigDecimal(1);
+        instance.remove(id);
         container.close();
 
         fail("No se pudo remover.");
@@ -82,6 +84,7 @@ public class PlatilloFacadeRESTTest {
         Object id = 1;
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         PlatilloFacadeREST instance = (PlatilloFacadeREST)container.getContext().lookup("java:global/classes/PlatilloFacadeREST");
+        entity = new Platillo(BigDecimal.ONE, BigInteger.ONE);
         Platillo expResult = entity;
         Platillo result = instance.find(id);
         assertEquals(expResult, result);
@@ -114,6 +117,7 @@ public class PlatilloFacadeRESTTest {
         System.out.println("create");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         PlatilloFacadeREST instance = (PlatilloFacadeREST)container.getContext().lookup("java:global/classes/PlatilloFacadeREST");
+        entity = new Platillo(BigDecimal.ONE, BigInteger.ONE);
         instance.create(entity);
         container.close();
  
@@ -126,9 +130,10 @@ public class PlatilloFacadeRESTTest {
     @Test
     public void testEdit_BigDecimal_Platillo() throws Exception {
         System.out.println("edit");
-        BigDecimal id = new BigDecimal(BigInteger.ONE);;
+        BigDecimal id = new BigDecimal(BigInteger.ONE);
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         PlatilloFacadeREST instance = (PlatilloFacadeREST)container.getContext().lookup("java:global/classes/PlatilloFacadeREST");
+        entity = new Platillo(BigDecimal.ONE, BigInteger.ONE);
         instance.edit(id, entity);
         container.close();
 
@@ -159,6 +164,7 @@ public class PlatilloFacadeRESTTest {
         BigDecimal id = new BigDecimal(BigInteger.ONE);;
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         PlatilloFacadeREST instance = (PlatilloFacadeREST)container.getContext().lookup("java:global/classes/PlatilloFacadeREST");
+        entity = new Platillo(BigDecimal.ONE, BigInteger.ONE);
         Platillo expResult = entity;
         Platillo result = instance.find(id);
         assertEquals(expResult, result);

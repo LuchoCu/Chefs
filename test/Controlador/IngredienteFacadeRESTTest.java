@@ -8,7 +8,6 @@ package Controlador;
 import Entidades.Ingrediente;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -38,7 +37,7 @@ public class IngredienteFacadeRESTTest {
     
     @Before
     public void setUp() {
-        entity = new Ingrediente(BigDecimal.ONE, "Tomate", BigInteger.TEN);
+        
     }
     
     @After
@@ -53,7 +52,9 @@ public class IngredienteFacadeRESTTest {
         System.out.println("edit");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         IngredienteFacadeREST instance = (IngredienteFacadeREST)container.getContext().lookup("java:global/classes/IngredienteFacadeREST");
-        instance.edit(entity);
+        entity = new Ingrediente(BigDecimal.ONE, "Tomate", BigInteger.TEN);
+        BigDecimal id = new BigDecimal(1);
+        instance.edit(id, entity);
         container.close();
 
         fail("No se pudo editar.");
@@ -67,7 +68,8 @@ public class IngredienteFacadeRESTTest {
         System.out.println("remove");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         IngredienteFacadeREST instance = (IngredienteFacadeREST)container.getContext().lookup("java:global/classes/IngredienteFacadeREST");
-        instance.remove(entity);
+        BigDecimal id = new BigDecimal(1);
+        instance.remove(id);
         container.close();
 
         fail("No se pudo remover.");
@@ -79,9 +81,10 @@ public class IngredienteFacadeRESTTest {
     @Test
     public void testFind_Object() throws Exception {
         System.out.println("find");
-        Object id = 1;
+        BigDecimal id = new BigDecimal(1);
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         IngredienteFacadeREST instance = (IngredienteFacadeREST)container.getContext().lookup("java:global/classes/IngredienteFacadeREST");
+        entity = new Ingrediente(BigDecimal.ONE, "Tomate", BigInteger.TEN);
         Ingrediente expResult = entity;
         Ingrediente result = instance.find(id);
         assertEquals(expResult, result);
@@ -114,6 +117,7 @@ public class IngredienteFacadeRESTTest {
         System.out.println("create");
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         IngredienteFacadeREST instance = (IngredienteFacadeREST)container.getContext().lookup("java:global/classes/IngredienteFacadeREST");
+        entity = new Ingrediente(BigDecimal.ONE, "Tomate", BigInteger.TEN);
         instance.create(entity);
         container.close();
  
@@ -129,10 +133,11 @@ public class IngredienteFacadeRESTTest {
         BigDecimal id = new BigDecimal(BigInteger.ONE);
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         IngredienteFacadeREST instance = (IngredienteFacadeREST)container.getContext().lookup("java:global/classes/IngredienteFacadeREST");
+        entity = new Ingrediente(BigDecimal.ONE, "Tomate", BigInteger.TEN);
         instance.edit(id, entity);
         container.close();
 
-        fail("No se pudo editar el usuario #.");
+        fail("No se pudo editar el usuario "+ id.toString() +".");
     }
 
     /**
@@ -147,7 +152,7 @@ public class IngredienteFacadeRESTTest {
         instance.remove(id);
         container.close();
  
-        fail("No se pudo remover el usuario #.");
+        fail("No se pudo remover el usuario "+ id.toString() +".");
     }
 
     /**
@@ -159,12 +164,13 @@ public class IngredienteFacadeRESTTest {
         BigDecimal id = new BigDecimal(BigInteger.ONE);
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         IngredienteFacadeREST instance = (IngredienteFacadeREST)container.getContext().lookup("java:global/classes/IngredienteFacadeREST");
+        entity = new Ingrediente(BigDecimal.ONE, "Tomate", BigInteger.TEN);
         Ingrediente expResult = entity;
         Ingrediente result = instance.find(id);
         assertEquals(expResult, result);
         container.close();
 
-        fail("El resultado de # no es el esperado.");
+        fail("El resultado de "+ id.toString() +" no es el esperado.");
     }
     
 }
