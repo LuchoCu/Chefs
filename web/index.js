@@ -108,6 +108,9 @@ function chefComments() {
 function getChef() {
     $("#top_chefs_menu").hide();
     $("#top_meals_menu").hide();
+    $("#search_menu").hide();
+    $("#start_image").hide();
+    $("#logo_image").hide();
     $("#chef_menu").show();
     $("#chef_menu #info").empty();
     $("#chef_menu #elements").empty();
@@ -171,17 +174,18 @@ function chefs() {
             for (i in elements) {
 
                 $("#top_chefs_menu #elements").append("<div id=\"" + elements[i].id + "\" class=\"chef click\">");
-                $("#top_chefs_menu #" + elements[i].id).append("<img src=\"chef.png\">");
-                $("#top_chefs_menu #" + elements[i].id).append("<p>" + elements[i].name + "</p>");
+                $("#top_chefs_menu #" + elements[i].id).append("<img id=\"chef_img\" src=\"chef.png\">");
+                $("#top_chefs_menu #" + elements[i].id).append("<p id=\"name\">" + elements[i].name + "</p>");
 
                 n = 5;
                 rating = Math.round(elements[i].rating);
                 while (rating--) {
+                    $("#top_chefs_menu #" + elements[i].id).append("<img id=\"star_img" + n + "\" class=\"star\" src=\"fullStar.png\">");
                     n--;
-                    $("#top_chefs_menu #" + elements[i].id).append("<img class=\"star\" src=\"fullStar.png\">");
                 }
-                while (n--) {
-                    $("#top_chefs_menu #" + elements[i].id).append("<img class=\"star\" src=\"emptyStar.png\">");
+                while (n) {
+                    $("#top_chefs_menu #" + elements[i].id).append("<img id=\"star_img" + n + "\" class=\"star\" src=\"emptyStar.png\">");
+                    n--
                 }
             }
             $(".chef").click(getChef);
@@ -207,17 +211,18 @@ function meals() {
             for (i in elements) {
 
                 $("#top_meals_menu #elements").append("<div id=\"" + elements[i].id + "\" class=\"meal click\">");
-                $("#top_meals_menu #" + elements[i].id).append("<img src=\"tomate.png\">");
-                $("#top_meals_menu #" + elements[i].id).append("<p>" + elements[i].name + "</p>");
+                $("#top_meals_menu #" + elements[i].id).append("<img id=\"meal_img\" src=\"tomate.png\">");
+                $("#top_meals_menu #" + elements[i].id).append("<p id=\"name\">" + elements[i].name + "</p>");
 
                 n = 5;
                 rating = Math.round(elements[i].rating);
                 while (rating--) {
+                    $("#top_meals_menu #" + elements[i].id).append("<img id=\"star_img" + n + "\" class=\"star\" src=\"fullStar.png\">");
                     n--;
-                    $("#top_meals_menu #" + elements[i].id).append("<img class=\"star\" src=\"fullStar.png\">");
                 }
-                while (n--) {
-                    $("#top_meals_menu #" + elements[i].id).append("<img class=\"star\" src=\"emptyStar.png\">");
+                while (n) {
+                    $("#top_meals_menu #" + elements[i].id).append("<img id=\"star_img" + n + "\" class=\"star\" src=\"emptyStar.png\">");
+                    n--;
                 }
             }
             $(".meal").click(getMeal);
@@ -258,6 +263,8 @@ function f_start() {
         $("#b_more_chefs").show();
         $("#top_meals_menu").show();
         $("#b_more_meals").show();
+        $("#logo_image").hide();
+        $("#start_image").show();
         $("#chef_menu").hide();
         $("#meal_menu").hide();
         $("#b_more_chefs").attr("page", 0);
