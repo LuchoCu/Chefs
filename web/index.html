@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="index.css" />
     <BODY>
         <div id="logo_image" class="click">
-            <img src="cliente.png" alt="Chef Logo">
+            <img src="cliente.png">
         </div>
 
         <div id="login_menu">
@@ -31,6 +31,7 @@
         <div id="start_menu" hidden="true">
             <div id="top_chefs_menu">
                 <div id="elements">
+                    <div id="0" class="chef"></div>
 
                 </div>
                 <button id="b_more_chefs" page="0"> Más </button>
@@ -53,11 +54,11 @@
         <div id="chef_menu" hidden="true">
             <div id="info"></div>
             <div id="rate">
-                <img id="star1" class="click" src="emptyStar.png">
-                <img id="star2" class="click" src="emptyStar.png">
-                <img id="star3" class="click" src="emptyStar.png">
-                <img id="star4" class="click" src="emptyStar.png">
-                <img id="star5" class="click" src="emptyStar.png">
+                <img id="star1" class="click star" src="emptyStar.png">
+                <img id="star2" class="click star" src="emptyStar.png">
+                <img id="star3" class="click star" src="emptyStar.png">
+                <img id="star4" class="click star" src="emptyStar.png">
+                <img id="star5" class="click star" src="emptyStar.png">
             </div>
             <button id="b_get_meals" page="0"> Platillos </button>
             <div id="comments">
@@ -73,8 +74,18 @@
 
         <div id="meal_menu" hidden="true">
             <div id="info"></div>
-            <div id="rate"></div>
+            <div id="rate">
+                <img id="star1" class="click star" src="emptyStar.png">
+                <img id="star2" class="click star" src="emptyStar.png">
+                <img id="star3" class="click star" src="emptyStar.png">
+                <img id="star4" class="click star" src="emptyStar.png">
+                <img id="star5" class="click star" src="emptyStar.png">
+            </div>
             <div id="comments">
+                <textarea maxlength="250">
+                </textarea>
+                <button id="b_comment"> Comentar </button>
+                <div id="elements">
                 <div id="elements">
 
                 </div>

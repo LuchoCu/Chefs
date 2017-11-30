@@ -1,6 +1,21 @@
+body {
+    background-color: lightblue;
+    text-align: center;
+}
+
+
 .click {
     cursor: pointer;
 }
 #logo_image {
     cursor: pointer;
+}
+
+.star{
+    width: 50px; /* you can use % */
+    height: 50px;
+}
+#fullStar{
+    width: 50px; /* you can use % */
+    height: 50px;
 }

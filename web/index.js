@@ -5,18 +5,45 @@ var URL_TOP_MEALS = "/top/meals/";
 var URL_CHEFS = "/chefs/";
 var URL_MEALS = "/meals/";
 var URL_CHEFS_MEALS = "/chefs/meals/";
-var URL_RATE = "/rate/chefs/";
+var URL_RATE_CHEF = "/rate/chefs/";
+var URL_RATE_MEAL = "/rate/meals/";
 var URL_CHEFS_COMMENTS = "/comments/chefs/";
 var URL_MEALS_COMMENTS = "/comments/meals/";
+var URL_COMMENT_CHEF = "/comment/chefs/"
+var URL_COMMENT_MEAL = "/comment/meals/"
 
 
 var USR_ID = 0;
+
+function commentChef() {
+    id = $("#chef_menu").attr("chefid");
+    comment = $("#chef_menu textarea").val();
+    $.ajax({
+        method: 'POST',
+        url: URL_COMMENT_CHEF + id,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({"comment" : comment, "USR_ID" : USR_ID}),
+
+        success: function(result){
+            console.log("[Login] Result " + JSON.stringify(result));
+        },
+
+        error: function(request, status, error){
+            console.log("[Login] Error: " + error);
+        }
+    });
+}
+
+function commentMeal() {
+
+}
 
 function rateChef(id, star) {
     alert(star);
     $.ajax({
         method: 'POST',
-        url: URL_RATE + id,
+        url: URL_RATE_CHEF + id,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({"rate" : star, "USR_ID" : USR_ID}),
@@ -32,11 +59,50 @@ function rateChef(id, star) {
 }
 
 function rateMeal(id, star) {
+    alert(star);
+    $.ajax({
+        method: 'POST',
+        url: URL_RATE_MEAL + id,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({"rate" : star, "USR_ID" : USR_ID}),
 
+        success: function(result){
+            console.log("[Login] Result " + JSON.stringify(result));
+        },
+
+        error: function(request, status, error){
+            console.log("[Login] Error: " + error);
+        }
+    });
 }
 
 function getChefMeal() {
 
+}
+
+function chefComments() {
+    page = $("#chef_menu #b_more_comments").attr("page");
+    page++;
+
+    $.ajax({
+        method: 'GET',
+        url: URL_CHEFS_COMMENTS + id + "/" + page,
+        contentType: "application/json; charset=utf-8",
+        success: function(result) {
+            elements = result.elements;
+            for (i in elements) {
+                $("#chef_menu #elements").append("<p>" + elements[i].name + "</p>");
+                $("#chef_menu #elements").append("<p>" + elements[i].comment + "</p>");
+            }
+
+        },
+
+        error: function(request, status, error){
+            alert("[Top Chefs] Error: " + error);
+        }
+    });
+    $("#chef_menu #b_more_comments").attr("page", page);
 }
 
 function getChef() {
@@ -62,32 +128,34 @@ function getChef() {
             alert("[Top Chefs] Error: " + error);
         }
     });
-    page = $("#chef_menu #b_more_comments").attr("page");
-    page++;
+    chefComments();
+}
 
+function getMeal() {
+    $("#top_chefs_menu").hide();
+    $("#top_meals_menu").hide();
+    $("#meal_menu").show();
+    $("#meal_menu #info").empty();
+    $("#meal_menu #elements").empty();
+    id = $(this).attr("id")
+    $("#meal_menu").attr("mealId", id);
     $.ajax({
         method: 'GET',
-        url: URL_CHEFS_COMMENTS + id + "/" + page,
+        url: URL_MEALS + id,
         contentType: "application/json; charset=utf-8",
         success: function(result) {
-            elements = result.elements;
-            for (i in elements) {
-                $("#chef_menu #elements").append("<p>" + elements[i].name + "</p>");
-                $("#chef_menu #elements").append("<p>" + elements[i].comment + "</p>");
-            }
-
+            //alert(JSON.stringify(result));
+            $("#meal_menu #info").append("<img src=\"tomate.png\">");
+            $("#meal_menu #info").append("<p id=\"name\">" + result.name + "</p>");
+            $("#meal_menu #info").append("<p id=\"description\">" + result.description + "</p>");
+            $("#meal_menu #info").append("<p id=\"cost\">" + result.cost + "</p>");
         },
 
         error: function(request, status, error){
             alert("[Top Chefs] Error: " + error);
         }
     });
-    $("#chef_menu #b_more_comments").attr("page", page);
-
-}
-
-function getMeal() {
-
+    mealComments();
 }
 
 function chefs() {
@@ -103,17 +171,17 @@ function chefs() {
             for (i in elements) {
 
                 $("#top_chefs_menu #elements").append("<div id=\"" + elements[i].id + "\" class=\"chef click\">");
-                $("#" + elements[i].id).append("<img src=\"chef.png\">");
-                $("#" + elements[i].id).append("<p>" + elements[i].name + "</p>");
+                $("#top_chefs_menu #" + elements[i].id).append("<img src=\"chef.png\">");
+                $("#top_chefs_menu #" + elements[i].id).append("<p>" + elements[i].name + "</p>");
 
                 n = 5;
                 rating = Math.round(elements[i].rating);
                 while (rating--) {
                     n--;
-                    $("#" + elements[i].id).append("<img src=\"fullStar.png\">");
+                    $("#top_chefs_menu #" + elements[i].id).append("<img class=\"star\" src=\"fullStar.png\">");
                 }
                 while (n--) {
-                    $("#" + elements[i].id).append("<img src=\"emptyStar.png\">");
+                    $("#top_chefs_menu #" + elements[i].id).append("<img class=\"star\" src=\"emptyStar.png\">");
                 }
             }
             $(".chef").click(getChef);
@@ -135,7 +203,24 @@ function meals() {
         url: URL_TOP_MEALS + page,
         contentType: "application/json; charset=utf-8",
         success: function(result){
-            //alert("[Top Meals] Result " + JSON.stringify(result));
+            elements = result.elements;
+            for (i in elements) {
+
+                $("#top_meals_menu #elements").append("<div id=\"" + elements[i].id + "\" class=\"meal click\">");
+                $("#top_meals_menu #" + elements[i].id).append("<img src=\"tomate.png\">");
+                $("#top_meals_menu #" + elements[i].id).append("<p>" + elements[i].name + "</p>");
+
+                n = 5;
+                rating = Math.round(elements[i].rating);
+                while (rating--) {
+                    n--;
+                    $("#top_meals_menu #" + elements[i].id).append("<img class=\"star\" src=\"fullStar.png\">");
+                }
+                while (n--) {
+                    $("#top_meals_menu #" + elements[i].id).append("<img class=\"star\" src=\"emptyStar.png\">");
+                }
+            }
+            $(".meal").click(getMeal);
         },
 
         error: function(request, status, error){
@@ -173,6 +258,8 @@ function f_start() {
         $("#b_more_chefs").show();
         $("#top_meals_menu").show();
         $("#b_more_meals").show();
+        $("#chef_menu").hide();
+        $("#meal_menu").hide();
         $("#b_more_chefs").attr("page", 0);
         $("#b_more_meals").attr("page", 0);
         $("#top_chefs_menu #elements").empty();
@@ -288,5 +375,7 @@ $(document).ready(function(){
         id = $("#meal_menu").attr("mealid");
         rateMeal(id, 5);
     });
-    
+    $("#chef_menu #b_comment").click(commentChef);
+    $("#meal_menu #b_comment").click(commentMeal);
+    $("#chef_menu #b_more_comments").click(chefComments);
 });
