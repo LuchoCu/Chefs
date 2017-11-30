@@ -7,9 +7,17 @@
     </HEAD>
     <script src="jquery-3.2.1.min.js"></script>
     <script src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css" />
     <BODY>
-        <div id="logo_image">
+        <div id="logo_image" class="click">
             <img src="cliente.png" alt="Chef Logo">
+        </div>
+
+        <div id="login_menu">
+            <input id="email" type="text" placeholder="Correo"> <br>
+            <input id="password" type="password" placeholder="Contraseña" maxlength="200"> <br>
+            <button id="b_loguin"> Entrar </button>
+            <p id="error_login" hidden="true">Usuario o contraseña incorrectos!</p>
         </div>
 
         <div id="menu_panel" hidden="true">
@@ -20,32 +28,58 @@
             <button id="b_logout"> Salir </button>
         </div>
 
-        <div id="login_menu">
-            <input id="email" type="text" placeholder="Correo"> <br>
-            <input id="password" type="password" placeholder="Contraseña" maxlength="200"> <br>
-            <button id="b_loguin"> Entrar </button>
-        </div>
-
         <div id="start_menu" hidden="true">
             <div id="top_chefs_menu">
-                <button id="b_more_chefs"> Más </button>
+                <div id="elements">
+
+                </div>
+                <button id="b_more_chefs" page="0"> Más </button>
             </div>
 
             <div id="top_meals_menu">
-                <button id="b_more_meals"> Más </button>
+                <div id="elements">
+
+                </div>
+                <button id="b_more_meals" page="0"> Más </button>
             </div>
         </div>
 
         <div id="search_menu" hidden="true">
+            <div id="elements">
 
+            </div>
         </div>
 
         <div id="chef_menu" hidden="true">
+            <div id="info"></div>
+            <div id="rate">
+                <img id="star1" class="click" src="emptyStar.png">
+                <img id="star2" class="click" src="emptyStar.png">
+                <img id="star3" class="click" src="emptyStar.png">
+                <img id="star4" class="click" src="emptyStar.png">
+                <img id="star5" class="click" src="emptyStar.png">
+            </div>
+            <button id="b_get_meals" page="0"> Platillos </button>
+            <div id="comments">
+                <textarea maxlength="250">
+                </textarea>
+                <button id="b_comment"> Comentar </button>
+                <div id="elements">
 
+                </div>
+                <button id="b_more_comments" page="0"> Más comentarios </button>
+            </div>
         </div>
 
         <div id="meal_menu" hidden="true">
+            <div id="info"></div>
+            <div id="rate"></div>
+            <div id="comments">
+                <div id="elements">
 
+                </div>
+                <button id="b_more_comments" page="0"> Más </button>
+            </div>
         </div>
 
     </BODY>
