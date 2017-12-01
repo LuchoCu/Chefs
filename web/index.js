@@ -108,8 +108,6 @@ function chefComments() {
 function getChef() {
     $("#top_chefs_menu").hide();
     $("#top_meals_menu").hide();
-    $("#search_menu").hide();
-    $("#start_image").hide();
     $("#logo_image").hide();
     $("#chef_menu").show();
     $("#chef_menu #info").empty();
@@ -122,7 +120,7 @@ function getChef() {
         contentType: "application/json; charset=utf-8",
         success: function(result) {
             //alert(JSON.stringify(result));
-            $("#chef_menu #info").append("<img src=\"chef.png\">");
+            $("#chef_menu #info").append("<img id=\"chef_menu_img\" src=\"chef.png\">");
             $("#chef_menu #info").append("<p>" + result.name + "</p>");
             $("#chef_menu #info").append("<p>" + result.email + "</p>");
         },
@@ -148,7 +146,7 @@ function getMeal() {
         contentType: "application/json; charset=utf-8",
         success: function(result) {
             //alert(JSON.stringify(result));
-            $("#meal_menu #info").append("<img src=\"tomate.png\">");
+            $("#meal_menu #info").append("<img id=\"meal_menu_img\" src=\"tomate.png\">");
             $("#meal_menu #info").append("<p id=\"name\">" + result.name + "</p>");
             $("#meal_menu #info").append("<p id=\"description\">" + result.description + "</p>");
             $("#meal_menu #info").append("<p id=\"cost\">" + result.cost + "</p>");
@@ -336,7 +334,7 @@ function f_logout() {
 
 $(document).ready(function(){
 
-    $("#logo_image").click(f_start);
+    $("#start_image").click(f_start);
     $("#b_loguin").click(f_login);
     $("#b_logout").click(f_logout);
     $("#b_more_chefs").click(f_more_chefs);

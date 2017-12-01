@@ -27,46 +27,47 @@ body {
 }
 
 #start_image{
-    position: absolute;
-    left: 400px;
+    position: relative;
+    left: 200px;
     width: 300px;
     padding: 10px;
 }
 
 #search_menu{
-    position: absolute;
-    left: 300px;
-    top: 40px;
+    position: relative;
+    left: 200px;
+    top: 2px;
     width: 300px;
     padding: 10px;
 }
 
 #b_logout{
-    position: absolute;
-    right: 10px;
-    top: 10px;
+    position: relative;
+    right: -630px;
+    top: -230px;
     width: 60px;
     padding: 10px;
 }
 
 #search_value{
-    position: absolute;
-    left: 350px;
+    position: relative;
+    left: 220px;
     width: 500px;
     height: 20px;
+    top: -90px;
     padding: 10px;
 }
 
 #b_search{
-    position: absolute;
-    left: 900px;
-    top: 10px;
+    position: relative;
+    left: 650px;
+    top: -134px;
     height: 43px;
     padding: 10px;
 }
 
 #top_chef_menu #elements{
-    position: absolute;
+    position: relative;
     top: 4000px;
 }
 
@@ -89,9 +90,9 @@ body {
 }
 
 #start_menu{
-    position: absolute;
-    left: 400px;
-    top: 200px;
+    position: relative;
+    left: 150px;
+    top: -100px;
     width: 300px;
 }
 
@@ -163,4 +164,28 @@ body {
     left: 600px;
     height: 43px;
     padding: 10px;
+}
+
+#chef_menu{
+    position: relative;
+    top: -100px;
+}
+
+#b_get_meals{
+    position: relative;
+    height: 35px;
+    width: 75px;
+    top: 10px;
+    left: 100px;
+}
+
+#comments{
+    position: relative;
+    top: 100px;
+}
+
+#b_comment{
+    position: relative;
+    height: 35px;
+    top: -13px;
 }
